@@ -5,9 +5,7 @@ Use this when someone finds the Lorebase GitHub repo and wants Codex to set ever
 ```text
 Install Lorebase locally in this folder from <paste this repo URL>.
 
-If this folder is empty, clone the repo contents into this folder. If the repo is already here, use the current files.
-
-Run ./scripts/install.sh --install-bun.
+Clone the repo contents into this folder, then run ./scripts/install.sh --install-bun.
 
 Keep source automations paused and do not ingest private source data yet. After install, guide me through setup in this thread: OpenAI key for embeddings, app connectors, and enabling one automation at a time. Report the Brain path, GBrain path, GBrain doctor status, installed automations, and whether embeddings are configured.
 ```
