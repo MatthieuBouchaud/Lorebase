@@ -131,12 +131,6 @@ Connect the Codex apps you want to use:
 
 Review the generated automation files in `generated/codex-automations/`. They are paused by default. Enable one source at a time after its connector works.
 
-## What To Share
-
-This repo is safe to share. A person's generated `~/Brain`, `~/gbrain/*-sync/data`, `~/.gbrain`, connector sessions, and automation run outputs are not safe to share by default.
-
-See [docs/share-checklist.md](docs/share-checklist.md) before publishing a fork or sending this to someone.
-
 ## Tests
 
 Run the local smoke suite before sharing changes:
