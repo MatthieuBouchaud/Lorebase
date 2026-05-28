@@ -17,7 +17,7 @@ Open an inbox item with the run result.
 
 ## Recommended Bring-Up Order
 
-1. Calendar: lowest risk and easiest to inspect.
+1. Google Calendar: lowest risk and easiest to inspect.
 2. Notion meetings: high value if the database shape is known.
 3. Email: enable after confirming mailbox scope.
 4. Slack: enable after narrowing workspaces and channels.

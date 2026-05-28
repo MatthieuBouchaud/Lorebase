@@ -5,7 +5,7 @@ Before sharing Lorebase or a fork:
 - Keep the repo itself separate from any real `Brain` repo.
 - Do not commit `generated/` if it contains local absolute paths.
 - Do not commit `~/.gbrain`, Telegram session files, connector exports, or sync data.
-- Do not commit `email-sync/data`, `slack-sync/data`, `telegram-sync/data`, `notion-meetings-sync/data`, or calendar `.raw` files.
+- Do not commit `email-sync/data`, `slack-sync/data`, `telegram-sync/data`, `notion-meetings-sync/data`, or Google Calendar `.raw` files.
 - Review automation prompts for absolute paths and personal names.
 - Keep automations paused by default.
 - Ask new users to enable one source at a time.

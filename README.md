@@ -7,15 +7,15 @@ Lorebase is a local AI-maintained memory system built around GBrain and Codex. I
 - a blank `Brain` markdown memory template
 - a one-command installer for Codex-driven setup
 - portable source-to-brain helper scripts
-- paused Codex automation templates for email, calendar, Slack, Notion meetings, and Telegram
+- paused Codex automation templates for Gmail, Google Calendar, Slack, Notion meetings, and Telegram
 
-The goal is to get someone from zero to "my sources are becoming useful memory pages" quickly, without copying any private data from an existing setup.
+The goal is to get someone from zero to "my sources are becoming useful memory pages" quickly.
 
 ## Architecture
 
 ```text
 External sources
-  Gmail, Calendar, Slack, Notion, Telegram
+  Gmail, Google Calendar, Slack, Notion, Telegram
         |
         v
 Codex Automations

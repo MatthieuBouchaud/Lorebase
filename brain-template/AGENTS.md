@@ -36,7 +36,7 @@ Do not rely on model memory for facts that should live in this repo.
 - Put current synthesis above the final `---` separator.
 - Put dated, sourced evidence below the final `---` separator.
 - File by primary subject, not by source channel.
-- Propagate durable signal from meetings, email, Slack, calendar, Notion, Telegram, or other sources into the resolver-selected page.
+- Propagate durable signal from meetings, email, Slack, Google Calendar, Notion, Telegram, or other sources into the resolver-selected page.
 - Keep raw or bulky imports in `sources/` or source-state repos; keep durable synthesis in the relevant Brain page.
 
 ## Source Data

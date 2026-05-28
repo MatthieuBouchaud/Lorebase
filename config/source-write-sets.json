@@ -15,7 +15,7 @@
       ]
     },
     "calendar-to-brain": {
-      "description": "Commit calendar-derived daily pages plus resolver-selected brain pages.",
+      "description": "Commit Google Calendar-derived daily pages plus resolver-selected brain pages.",
       "code_repo_paths": [],
       "brain_repo_paths": [
         "daily/calendar/",

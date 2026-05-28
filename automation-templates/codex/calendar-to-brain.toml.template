@@ -1,7 +1,7 @@
 version = 1
 id = "calendar-to-brain"
 kind = "cron"
-name = "Calendar to Brain"
+name = "Google Calendar to Brain"
 prompt = "Use [$source-to-brain-automation]({{CODEX_SKILL_PATH}}) with recipe {{GBRAIN_REPO}}/recipes/calendar-to-brain.md. The writable brain repo is {{BRAIN_REPO}} and source-state files stay under {{GBRAIN_REPO}}. Open an inbox item with the result of the run."
 status = "PAUSED"
 rrule = "RRULE:FREQ=WEEKLY;BYHOUR=9;BYMINUTE=0;BYDAY=MO"
