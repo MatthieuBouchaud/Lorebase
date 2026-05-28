@@ -7,6 +7,7 @@ Lorebase is a local AI-maintained memory system built around GBrain and Codex. I
 - a blank `Brain` markdown memory template
 - a one-command installer for Codex-driven setup
 - portable source-to-brain helper scripts
+- source recipes that tell each automation how to ingest and publish safely
 - paused Codex automation templates for Gmail, Google Calendar, Slack, Notion meetings, and Telegram
 
 The goal is to get someone from zero to "my sources are becoming useful memory pages" quickly.
@@ -77,6 +78,7 @@ By default the installer:
 - installs a local Codex skill at `~/.codex/skills/source-to-brain-automation/SKILL.md`
 - renders paused automation TOML files into `generated/codex-automations/`
 - installs paused automation TOML files into `~/.codex/automations/`
+- copies source recipes into `~/gbrain/recipes/`
 - copies sanitized config examples into the relevant `~/gbrain/*-sync/` folders
 - auto-detects timezone and writes a neutral operator label to source config examples
 - runs `bun install`, `bun link`, `gbrain init`, `gbrain doctor --json`, and `gbrain import ~/Brain --no-embed`
@@ -93,7 +95,7 @@ Use custom paths when needed:
 - **Codex** is the local agent and scheduler. It reads connected sources, follows source-specific recipes, reasons over what matters, and writes staged memory updates.
 - **GBrain** is the memory tooling and retrieval layer. It owns the CLI, source-state repo, imports, syncs, search, query, and embeddings.
 - **`~/Brain`** is the durable source of truth. It is plain markdown organized by people, companies, meetings, projects, ideas, concepts, and other resolver-selected homes.
-- **Lorebase** is the glue. It installs the local workspace, gives Codex a repeatable source-to-brain skill, keeps automations paused by default, and provides tests so the setup stays shareable.
+- **Lorebase** is the glue. It installs the local workspace, ships source recipes, gives Codex a repeatable source-to-brain skill, keeps automations paused by default, and provides tests so the setup stays shareable.
 
 ## Brain Folder Architecture
 

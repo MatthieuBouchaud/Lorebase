@@ -160,7 +160,10 @@ done
 
 log "Verifying idempotent bootstrap does not overwrite user files"
 custom_file="$brain_repo/inbox/custom.md"
+custom_recipe="$gbrain_repo/recipes/email-to-brain.md"
+[[ -f "$custom_recipe" ]] || fail "Initial bootstrap did not copy recipes"
 printf 'user-owned\n' > "$custom_file"
+printf 'user-owned recipe\n' > "$custom_recipe"
 ./scripts/bootstrap.sh \
   --brain "$brain_repo" \
   --gbrain "$gbrain_repo" \
@@ -169,6 +172,8 @@ printf 'user-owned\n' > "$custom_file"
   --operator "Smoke User" \
   --model gpt-smoke >/dev/null
 [[ "$(cat "$custom_file")" == "user-owned" ]] || fail "Bootstrap overwrote an existing user file"
+[[ "$(cat "$custom_recipe")" == "user-owned recipe" ]] || fail "Bootstrap overwrote an existing recipe"
+cp recipes/email-to-brain.md "$custom_recipe"
 
 log "Verifying installed Codex skill"
 skill_path="$HOME/.codex/skills/source-to-brain-automation/SKILL.md"
@@ -202,6 +207,16 @@ for config_path in \
 do
   [[ -f "$config_path" ]] || fail "Missing copied config: $config_path"
   python3 -m json.tool "$config_path" >/dev/null
+done
+
+log "Verifying copied source recipes"
+for recipe_name in email-to-brain calendar-to-brain slack-to-brain notion-meetings-to-brain telegram-to-brain; do
+  recipe_path="$gbrain_repo/recipes/$recipe_name.md"
+  [[ -f "$recipe_path" ]] || fail "Missing copied recipe: $recipe_path"
+  grep -q "source-state repo" "$recipe_path" || fail "$recipe_path does not describe source-state behavior"
+  if grep -q '{{' "$recipe_path"; then
+    fail "$recipe_path still contains template placeholders"
+  fi
 done
 
 python3 - "$gbrain_repo" <<'PY'
@@ -239,6 +254,8 @@ HOME="$default_home" ./scripts/bootstrap.sh \
   --gbrain "$default_gbrain" \
   --no-gbrain-clone \
   --no-install-codex-skill >/dev/null
+
+[[ -f "$default_gbrain/recipes/calendar-to-brain.md" ]] || fail "Default bootstrap did not copy recipes"
 
 python3 - "$default_gbrain" <<'PY'
 import json
@@ -305,6 +322,7 @@ OPENAI_API_KEY="test-openai-key" \
 [[ -f "$install_brain/AGENTS.md" ]] || fail "Installer did not create Brain repo"
 [[ -f "$install_home/.codex/skills/source-to-brain-automation/SKILL.md" ]] || fail "Installer did not install Codex skill"
 [[ -f "$install_home/.codex/automations/email-to-brain/automation.toml" ]] || fail "Installer did not install paused automations"
+[[ -f "$install_gbrain/recipes/email-to-brain.md" ]] || fail "Installer did not copy source recipes"
 grep -q 'status = "PAUSED"' "$install_home/.codex/automations/email-to-brain/automation.toml" || fail "Installed automation is not paused"
 grep -qx "install" "$tmp_root/bun-install-stub.log" || fail "Installer did not run bun install"
 grep -qx "link" "$tmp_root/bun-install-stub.log" || fail "Installer did not run bun link"

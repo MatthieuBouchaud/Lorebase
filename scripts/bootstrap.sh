@@ -192,6 +192,18 @@ print(f"created {target}")
 PY
 }
 
+copy_file_no_overwrite() {
+  local src="$1"
+  local dst="$2"
+  if [[ -e "$dst" ]]; then
+    echo "kept existing $dst"
+    return 0
+  fi
+  mkdir -p "$(dirname "$dst")"
+  cp "$src" "$dst"
+  echo "created $dst"
+}
+
 echo "Lorebase bootstrap"
 echo "starter: $starter_root"
 echo "brain:   $brain_repo"
@@ -227,6 +239,10 @@ if [[ -d "$gbrain_repo" ]]; then
   copy_json_example "$starter_root/config/slack-sync.config.example.json" "$gbrain_repo/slack-sync/config.example.json"
   copy_json_example "$starter_root/config/notion-meetings-sync.config.example.json" "$gbrain_repo/notion-meetings-sync/config.example.json"
   copy_json_example "$starter_root/config/telegram-sync.config.example.json" "$gbrain_repo/telegram-sync/config.example.json"
+  for recipe in "$starter_root"/recipes/*.md; do
+    [[ -e "$recipe" ]] || continue
+    copy_file_no_overwrite "$recipe" "$gbrain_repo/recipes/$(basename "$recipe")"
+  done
 fi
 
 if [[ "$install_codex_automations" -eq 1 ]]; then

@@ -6,6 +6,12 @@ The installer renders paused automation TOML files to:
 generated/codex-automations/
 ```
 
+It also copies source recipes to:
+
+```text
+~/gbrain/recipes/
+```
+
 Each automation prompt follows the same pattern:
 
 ```text
@@ -14,6 +20,8 @@ The writable brain repo is <brain>.
 Source-state files stay under <gbrain>.
 Open an inbox item with the run result.
 ```
+
+The skill handles the shared preflight and publish flow. The recipe contains the source-specific instructions: which connector to use, what scope to read, where source-state files live, and how to decide which Brain pages should be updated.
 
 ## Recommended Bring-Up Order
 
