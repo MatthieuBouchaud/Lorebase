@@ -45,10 +45,15 @@ Install Lorebase locally in this folder from <paste this repo URL>.
 
 Clone the repo contents into this folder, then run ./scripts/install.sh --install-bun.
 
-Keep source automations paused and do not ingest private source data yet. After install, guide me through setup in this thread: OpenAI key for embeddings, app connectors, and enabling one automation at a time. Report the Brain path, GBrain path, GBrain doctor status, installed automations, and whether embeddings are configured.
+After install, guide me through setup in this order:
+1. Confirm the Brain path, GBrain path, GBrain doctor status, and installed paused automations.
+2. Help me connect each source tool: Gmail, Google Calendar, Slack, and Notion through Codex app connectors/plugins; Telegram through its Telethon user-session credentials.
+3. For each connected source, review its config and enable the matching automation at the recommended frequency.
+4. After each automation runs, open/check its Codex run thread, confirm it completed, and summarize the files or Brain pages it created or changed.
+5. Help me configure OpenAI embeddings if they are not already configured.
 ```
 
-That prompt gives Codex enough context to clone the repo into the folder, run the installer, install GBrain dependencies, create the local Brain, install the Lorebase Codex skill, render and install paused automations, initialize GBrain, import the blank Brain, and start guided setup.
+That prompt gives Codex enough context to clone the repo into the folder, run the installer, install GBrain dependencies, create the local Brain, install the Lorebase Codex skill, render and install paused automations, initialize GBrain, import the blank Brain, then guide connector setup and automation verification.
 
 ## Setup Choices
 
@@ -124,15 +129,16 @@ Embeddings are what make semantic retrieval work. Plain text search still works 
 
 ## After Install
 
-Connect the Codex apps you want to use:
+Set up sources in this order:
 
-- Gmail for email-to-brain
-- Google Calendar for calendar-to-brain
-- Slack for slack-to-brain
-- Notion for notion-meetings-to-brain
-- Telegram uses Telethon credentials instead of a Codex connector
+1. Connect source tools:
+   - Gmail, Google Calendar, Slack, and Notion use Codex app connectors/plugins.
+   - Telegram uses Telethon user-session credentials instead of a Codex connector.
+2. Review each source config before ingesting data, especially scope, channels, mailbox query, date windows, and output folders.
+3. Enable the matching paused automation at the recommended frequency.
+4. After each run, inspect the Codex automation thread/run result and review the files or Brain pages it created or changed.
 
-Review the generated automation files in `generated/codex-automations/`. They are paused by default. Enable one source at a time after its connector works.
+The generated automation files live in `generated/codex-automations/` and are installed paused by default.
 
 ## Tests
 

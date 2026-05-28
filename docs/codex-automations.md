@@ -23,6 +23,13 @@ Open an inbox item with the run result.
 4. Slack: enable after narrowing workspaces and channels.
 5. Telegram: enable only after Telethon auth is healthy.
 
+For each source:
+
+1. Connect the source tool first. Gmail, Google Calendar, Slack, and Notion use Codex app connectors/plugins; Telegram uses Telethon user-session credentials.
+2. Review the source config and ingestion scope before enabling the automation.
+3. Enable the matching paused automation at the desired frequency.
+4. After it runs, inspect the Codex run thread and review the files or Brain pages it created or changed.
+
 ## Installing The TOML Files
 
 `scripts/install.sh` installs the rendered paused automations into `~/.codex/automations/` by default. To render files only, run it with `--no-install-codex-automations`.

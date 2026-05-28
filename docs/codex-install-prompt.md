@@ -7,7 +7,12 @@ Install Lorebase locally in this folder from <paste this repo URL>.
 
 Clone the repo contents into this folder, then run ./scripts/install.sh --install-bun.
 
-Keep source automations paused and do not ingest private source data yet. After install, guide me through setup in this thread: OpenAI key for embeddings, app connectors, and enabling one automation at a time. Report the Brain path, GBrain path, GBrain doctor status, installed automations, and whether embeddings are configured.
+After install, guide me through setup in this order:
+1. Confirm the Brain path, GBrain path, GBrain doctor status, and installed paused automations.
+2. Help me connect each source tool: Gmail, Google Calendar, Slack, and Notion through Codex app connectors/plugins; Telegram through its Telethon user-session credentials.
+3. For each connected source, review its config and enable the matching automation at the recommended frequency.
+4. After each automation runs, open/check its Codex run thread, confirm it completed, and summarize the files or Brain pages it created or changed.
+5. Help me configure OpenAI embeddings if they are not already configured.
 ```
 
 Optional edits:
