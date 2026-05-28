@@ -1,0 +1,44 @@
+{
+  "mode": "codex-plugin",
+  "timezone": "Etc/UTC",
+  "operator_display_name": "Your Name",
+  "output": {
+    "messages_dir": "slack-sync/data/messages",
+    "digests_dir": "slack-sync/data/digests",
+    "state_file": "slack-sync/data/state.json",
+    "index_file": "slack-sync/data/INDEX.md"
+  },
+  "backfill": {
+    "workspaces": [
+      {
+        "label": "Primary",
+        "channels": [],
+        "include_mentions": true,
+        "include_dms": true,
+        "selection_strategy": "Start with DMs, direct mentions, and user-involved threads; add channels only when explicitly configured."
+      }
+    ],
+    "older_chunk_days": 7,
+    "recent_chunk_days": 1
+  },
+  "rolling_sync": {
+    "lookback_hours": 24,
+    "thread_lookback_hours": 72,
+    "include_mentions": true,
+    "include_dms": true
+  },
+  "reconciliation": {
+    "lookback_days": 7
+  },
+  "rules": {
+    "noise_authors": [
+      "slackbot",
+      "github",
+      "linear",
+      "notion",
+      "sentry",
+      "jira"
+    ],
+    "notable_author_threshold": 3
+  }
+}

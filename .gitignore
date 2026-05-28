@@ -1,0 +1,27 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+
+generated/
+
+# Local source data and credentials
+.gbrain/
+**/.raw/
+**/data/messages/
+**/data/digests/
+**/data/runs/
+**/data/files/
+**/data/state.json
+**/data/INDEX.md
+
+# Telegram sessions and local venvs
+*.session
+*.session-journal
+.venv/
+__pycache__/
+
+# Build outputs
+node_modules/
+dist/
+coverage/

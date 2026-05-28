@@ -1,0 +1,44 @@
+{
+  "mode": "codex-plugin",
+  "timezone": "Etc/UTC",
+  "output": {
+    "messages_dir": "email-sync/data/messages",
+    "digests_dir": "email-sync/data/digests",
+    "state_file": "email-sync/data/state.json",
+    "index_file": "email-sync/data/INDEX.md"
+  },
+  "backfill": {
+    "accounts": [
+      {
+        "label": "Primary",
+        "query": "in:inbox newer_than:90d"
+      }
+    ],
+    "older_chunk_days": 30,
+    "recent_chunk_days": 3
+  },
+  "rolling_sync": {
+    "lookback_hours": 36,
+    "include_unread_only": false,
+    "include_recent_sent_mail": true
+  },
+  "rules": {
+    "noise_senders": [
+      "noreply",
+      "no-reply",
+      "notifications@",
+      "mailer-daemon",
+      "postmaster",
+      "donotreply"
+    ],
+    "signature_patterns": [
+      "docusign",
+      "dropbox sign",
+      "hellosign",
+      "pandadoc",
+      "please sign",
+      "signature needed"
+    ],
+    "notable_sender_threshold": 3
+  }
+}

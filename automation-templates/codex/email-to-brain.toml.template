@@ -1,0 +1,11 @@
+version = 1
+id = "email-to-brain"
+kind = "cron"
+name = "Email to Brain"
+prompt = "Use [$source-to-brain-automation]({{CODEX_SKILL_PATH}}) with recipe {{GBRAIN_REPO}}/recipes/email-to-brain.md. The writable brain repo is {{BRAIN_REPO}} and source-state files stay under {{GBRAIN_REPO}}. Open an inbox item with the result of the run."
+status = "PAUSED"
+rrule = "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=9;BYMINUTE=5"
+model = "{{MODEL}}"
+reasoning_effort = "high"
+execution_environment = "local"
+cwds = ["{{GBRAIN_REPO}}", "{{BRAIN_REPO}}"]

@@ -1,0 +1,25 @@
+{
+  "mode": "codex-plugin",
+  "timezone": "Etc/UTC",
+  "output": {
+    "daily_dir": "brain/daily/calendar",
+    "raw_dir": "brain/daily/calendar/.raw"
+  },
+  "chunking": {
+    "dense_after": "2023-01-01",
+    "sparse_period": "monthly",
+    "dense_period": "weekly"
+  },
+  "backfill": {
+    "accounts": [
+      {
+        "label": "Primary",
+        "start_year": 2024
+      }
+    ]
+  },
+  "weekly_sync": {
+    "lookback_days": 7,
+    "lookahead_days": 30
+  }
+}

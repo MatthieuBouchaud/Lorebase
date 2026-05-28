@@ -1,0 +1,11 @@
+version = 1
+id = "notion-meetings-to-brain"
+kind = "cron"
+name = "Notion Meetings to Brain"
+prompt = "Use [$source-to-brain-automation]({{CODEX_SKILL_PATH}}) with recipe {{GBRAIN_REPO}}/recipes/notion-meetings-to-brain.md. The writable brain repo is {{BRAIN_REPO}} and source-state files stay under {{GBRAIN_REPO}}. Sync configured meeting notes, create meeting pages, and propagate durable attendee/entity context. Open an inbox item with the result of the run."
+status = "PAUSED"
+rrule = "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9;BYMINUTE=15"
+model = "{{MODEL}}"
+reasoning_effort = "high"
+execution_environment = "local"
+cwds = ["{{GBRAIN_REPO}}", "{{BRAIN_REPO}}"]

@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "sources": {
+    "email-to-brain": {
+      "description": "Commit locally updated email collector data plus resolver-selected brain pages.",
+      "code_repo_paths": [
+        "email-sync/data/"
+      ],
+      "brain_repo_paths": [
+        "people/",
+        "companies/",
+        "projects/",
+        "ideas/",
+        "concepts/"
+      ]
+    },
+    "calendar-to-brain": {
+      "description": "Commit calendar-derived daily pages plus resolver-selected brain pages.",
+      "code_repo_paths": [],
+      "brain_repo_paths": [
+        "daily/calendar/",
+        "people/",
+        "companies/",
+        "projects/",
+        "ideas/",
+        "concepts/"
+      ]
+    },
+    "slack-to-brain": {
+      "description": "Commit locally updated Slack collector data plus resolver-selected brain pages.",
+      "code_repo_paths": [
+        "slack-sync/data/"
+      ],
+      "brain_repo_paths": [
+        "people/",
+        "companies/",
+        "projects/",
+        "ideas/",
+        "concepts/"
+      ]
+    },
+    "notion-meetings-to-brain": {
+      "description": "Commit locally updated Notion meeting snapshots plus meeting and entity brain pages.",
+      "code_repo_paths": [
+        "notion-meetings-sync/data/"
+      ],
+      "brain_repo_paths": [
+        "meetings/",
+        "people/",
+        "companies/",
+        "projects/",
+        "ideas/",
+        "concepts/"
+      ]
+    },
+    "telegram-to-brain": {
+      "description": "Commit locally updated Telegram collector data plus resolver-selected brain pages.",
+      "code_repo_paths": [
+        "telegram-sync/data/"
+      ],
+      "brain_repo_paths": [
+        "people/",
+        "companies/",
+        "projects/",
+        "ideas/",
+        "concepts/"
+      ]
+    }
+  }
+}

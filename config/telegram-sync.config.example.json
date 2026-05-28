@@ -1,0 +1,37 @@
+{
+  "mode": "telethon-user-session",
+  "auth_mode": "telethon-user-session",
+  "timezone": "Etc/UTC",
+  "operator_display_name": "Your Name",
+  "download_attachments": true,
+  "chat_scope": "all",
+  "include_private_chats": true,
+  "include_groups": true,
+  "include_channels": true,
+  "include_archived": true,
+  "include_bots": true,
+  "max_dialogs_per_run": 0,
+  "max_messages_per_chat_per_run": 0,
+  "min_date": null,
+  "wait_time_sec": 1,
+  "telethon": {
+    "session_name": "~/.gbrain/integrations/telegram-to-brain/telethon-user",
+    "api_id_env": "TELEGRAM_API_ID",
+    "api_hash_env": "TELEGRAM_API_HASH",
+    "phone_env": "TELEGRAM_PHONE"
+  },
+  "output": {
+    "messages_dir": "telegram-sync/data/messages",
+    "digests_dir": "telegram-sync/data/digests",
+    "files_dir": "telegram-sync/data/files",
+    "state_file": "telegram-sync/data/state.json",
+    "index_file": "telegram-sync/data/INDEX.md",
+    "runs_dir": "telegram-sync/data/runs"
+  },
+  "rules": {
+    "noise_commands": [
+      "/start",
+      "/help"
+    ]
+  }
+}

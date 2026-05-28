@@ -1,0 +1,98 @@
+---
+name: source-to-brain-automation
+description: "Run a source-to-brain Codex automation from a GBrain recipe path with one shared preflight, staged publish, commit, and heartbeat flow."
+---
+
+# Source-to-Brain Automation
+
+Use this skill for recurring Codex automations that ingest external sources into a local Brain repo.
+
+## Local Roots
+
+- source repo: `{{GBRAIN_REPO}}`
+- brain repo: `{{BRAIN_REPO}}`
+- starter repo: `{{STARTER_REPO}}`
+- helper: `{{STARTER_REPO}}/scripts/source-to-brain-automation.sh`
+- write sets: `{{STARTER_REPO}}/config/source-write-sets.json`
+
+Infer `source-id` from the recipe filename unless the caller provides one.
+
+Examples:
+
+- `recipes/email-to-brain.md` -> `email-to-brain`
+- `recipes/calendar-to-brain.md` -> `calendar-to-brain`
+
+## Run Loop
+
+1. Open the recipe path first. Treat it as the source of truth for source-specific behavior.
+2. Treat setup sections as setup context, not recurring run work. Do not rewrite local marker files unless the user asks to change setup.
+3. Connector reads happen in the Codex agent layer. Do not route Codex connector reads through shell scripts.
+4. Before touching Brain files, read `{{BRAIN_REPO}}/RESOLVER.md`.
+5. Stage Brain writes under `{{GBRAIN_REPO}}/tmp/source-to-brain/<source-id>/<run-id>/`.
+6. Write a manifest JSON next to staged files:
+
+```json
+{
+  "operations": [
+    {
+      "type": "write",
+      "target": "people/jane-doe.md",
+      "source": "people/jane-doe.md"
+    }
+  ]
+}
+```
+
+7. Before sync or import, run:
+
+```bash
+{{STARTER_REPO}}/scripts/source-to-brain-automation.sh doctor
+```
+
+8. Commit source-state and brain-path changes before publishing when the recipe produced local files:
+
+```bash
+SOURCE_TO_BRAIN_WRITE_SETS={{STARTER_REPO}}/config/source-write-sets.json \
+{{STARTER_REPO}}/scripts/source-to-brain-automation.sh commit-source-split <source-id> {{GBRAIN_REPO}} {{BRAIN_REPO}} "automation(<source-id>): update source outputs"
+```
+
+9. Publish staged Brain writes:
+
+```bash
+SOURCE_TO_BRAIN_WRITE_SETS={{STARTER_REPO}}/config/source-write-sets.json \
+{{STARTER_REPO}}/scripts/source-to-brain-automation.sh publish-manifest {{BRAIN_REPO}} {{GBRAIN_REPO}}/tmp/source-to-brain/<source-id>/<run-id>/manifest.json
+```
+
+The publish helper imports or syncs changed markdown with `--no-embed`, then runs `gbrain embed --stale` so semantic retrieval catches up. Embedding failures are non-blocking unless `SOURCE_TO_BRAIN_REQUIRE_EMBEDDINGS=1` is set.
+
+10. Log a heartbeat:
+
+```bash
+{{STARTER_REPO}}/scripts/source-to-brain-automation.sh heartbeat --integration <source-id> --status ok --details "summary"
+```
+
+## Brain Access Rule
+
+During recurring automations, use the helper for Brain reads, directory inspection, staged writes, sync, import, and commits. This keeps automation behavior consistent and avoids accidental broad edits.
+
+Useful commands:
+
+```bash
+{{STARTER_REPO}}/scripts/source-to-brain-automation.sh read-file {{BRAIN_REPO}} RESOLVER.md
+{{STARTER_REPO}}/scripts/source-to-brain-automation.sh list-dir {{BRAIN_REPO}} people
+{{STARTER_REPO}}/scripts/source-to-brain-automation.sh write-set <source-id>
+{{STARTER_REPO}}/scripts/source-to-brain-automation.sh import-path {{BRAIN_REPO}}/people/jane-doe.md
+{{STARTER_REPO}}/scripts/source-to-brain-automation.sh sync-repo {{BRAIN_REPO}}
+```
+
+## Output
+
+Open an inbox item or return a concise run result with:
+
+- source id
+- status
+- coverage window
+- changed files
+- blocked connector or credential issues
+- sync/import result
+- embedding result

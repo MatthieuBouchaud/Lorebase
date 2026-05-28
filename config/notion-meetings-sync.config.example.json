@@ -1,0 +1,41 @@
+{
+  "mode": "codex-plugin",
+  "timezone": "Etc/UTC",
+  "database": {
+    "label": "Meeting Notes",
+    "database_id": "replace-with-notion-database-id",
+    "data_source_url": "collection://replace-with-data-source-id",
+    "title_property": "Title"
+  },
+  "extraction": {
+    "mode": "meeting-notes-block",
+    "date_source": "title_mention_date_with_created_time_fallback",
+    "summary_source": "meeting-notes.summary",
+    "notes_source": "meeting-notes.notes",
+    "transcript_source": "meeting-notes.transcript",
+    "attendees_source": "meeting-notes.attendees",
+    "resolve_attendees_via": "notion_get_users",
+    "companies_source": "entity_extraction_from_summary_notes_transcript"
+  },
+  "output": {
+    "meetings_dir": "notion-meetings-sync/data/meetings",
+    "state_file": "notion-meetings-sync/data/state.json",
+    "index_file": "notion-meetings-sync/data/INDEX.md",
+    "brain_dir": "brain/meetings"
+  },
+  "backfill": {
+    "lookback_days": 180,
+    "older_chunk_days": 30,
+    "recent_chunk_days": 7
+  },
+  "rolling_sync": {
+    "sync_recently_edited_pages": true,
+    "recent_meeting_lookback_days": 14,
+    "retry_missing_transcripts": true
+  },
+  "rules": {
+    "notable_attendee_threshold": 2,
+    "transcript_light_requires_recheck": true,
+    "preserve_manual_sections": true
+  }
+}
