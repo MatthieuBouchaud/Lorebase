@@ -1,11 +1,11 @@
 # Codex Install Prompt
 
-Use this when someone finds the Lorebase GitHub repo and wants Codex to set everything up locally.
+Use this when someone finds the Lorebase GitHub repo and wants Codex to set everything up locally. They can create a new empty folder, open a Codex thread from that folder, and paste:
 
 ```text
-Install Lorebase locally from this GitHub repo: <paste repo URL>.
+Install Lorebase locally in this folder from <paste this repo URL>.
 
-Clone it to ~/lorebase if it is not already open. Then:
+If this folder is empty, clone the repo contents into this folder. If the repo is already here, use the current files. Then:
 1. Run make test.
 2. Run ./scripts/install.sh --install-bun --timezone "Etc/UTC" --operator "Your Name".
 3. Keep all source automations paused.

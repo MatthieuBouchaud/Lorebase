@@ -36,13 +36,14 @@ GBrain index
 
 ## Codex-First Quickstart
 
-1. Open this GitHub repo in Codex, or copy the repo URL into a new Codex thread.
-2. Paste this prompt:
+1. Create a new empty folder with whatever name you want.
+2. Open a new Codex thread from that folder.
+3. Paste this prompt:
 
 ```text
-Install Lorebase locally from this GitHub repo: <paste repo URL>.
+Install Lorebase locally in this folder from <paste this repo URL>.
 
-Clone it to ~/lorebase if it is not already open. Then:
+If this folder is empty, clone the repo contents into this folder. If the repo is already here, use the current files. Then:
 1. Run make test.
 2. Run ./scripts/install.sh --install-bun --timezone "Etc/UTC" --operator "Your Name".
 3. Keep all source automations paused.
@@ -51,12 +52,12 @@ Clone it to ~/lorebase if it is not already open. Then:
 When finished, tell me the Brain path, GBrain path, whether GBrain doctor passed, whether embeddings ran, and what connector I should enable first.
 ```
 
-That prompt gives Codex enough context to clone the repo, verify it, run the installer, install GBrain dependencies, create the local Brain, install the Lorebase Codex skill, render and install paused automations, initialize GBrain, import the blank Brain, and run embeddings when `OPENAI_API_KEY` is available.
+That prompt gives Codex enough context to clone the repo into the folder, verify it, run the installer, install GBrain dependencies, create the local Brain, install the Lorebase Codex skill, render and install paused automations, initialize GBrain, import the blank Brain, and run embeddings when `OPENAI_API_KEY` is available.
 
 ## Manual Quickstart
 
 ```bash
-git clone <this-repo-url> lorebase
+git clone <repo-url> lorebase
 cd lorebase
 make test
 ./scripts/install.sh --install-bun
