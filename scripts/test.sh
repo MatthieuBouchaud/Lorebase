@@ -229,6 +229,42 @@ for rel in [
         raise SystemExit(f"{rel} did not receive operator override")
 PY
 
+log "Verifying default timezone and operator behavior"
+default_home="$tmp_root/default-home"
+default_brain="$tmp_root/default-brain"
+default_gbrain="$tmp_root/default-gbrain"
+mkdir -p "$default_home" "$default_gbrain/.git"
+HOME="$default_home" ./scripts/bootstrap.sh \
+  --brain "$default_brain" \
+  --gbrain "$default_gbrain" \
+  --no-gbrain-clone \
+  --no-install-codex-skill >/dev/null
+
+python3 - "$default_gbrain" <<'PY'
+import json
+import pathlib
+import sys
+
+root = pathlib.Path(sys.argv[1])
+for rel in [
+    "email-sync/config.example.json",
+    "calendar-sync/config.example.json",
+    "slack-sync/config.example.json",
+    "notion-meetings-sync/config.example.json",
+    "telegram-sync/config.example.json",
+]:
+    data = json.loads((root / rel).read_text())
+    if not data.get("timezone"):
+        raise SystemExit(f"{rel} did not receive a default timezone")
+for rel in [
+    "slack-sync/config.example.json",
+    "telegram-sync/config.example.json",
+]:
+    data = json.loads((root / rel).read_text())
+    if data.get("operator_display_name") != "You":
+        raise SystemExit(f"{rel} did not receive neutral operator default")
+PY
+
 log "Verifying source-to-brain helper write sets"
 for source_id in email-to-brain calendar-to-brain slack-to-brain notion-meetings-to-brain telegram-to-brain; do
   ./scripts/source-to-brain-automation.sh write-set "$source_id" >/dev/null

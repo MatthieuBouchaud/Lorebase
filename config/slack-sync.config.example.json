@@ -1,7 +1,7 @@
 {
   "mode": "codex-plugin",
   "timezone": "Etc/UTC",
-  "operator_display_name": "Your Name",
+  "operator_display_name": "replace-with-your-display-name",
   "output": {
     "messages_dir": "slack-sync/data/messages",
     "digests_dir": "slack-sync/data/digests",

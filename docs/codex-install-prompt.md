@@ -5,19 +5,17 @@ Use this when someone finds the Lorebase GitHub repo and wants Codex to set ever
 ```text
 Install Lorebase locally in this folder from <paste this repo URL>.
 
-If this folder is empty, clone the repo contents into this folder. If the repo is already here, use the current files. Then:
-1. Run make test.
-2. Run ./scripts/install.sh --install-bun --timezone "Etc/UTC" --operator "Your Name".
-3. Keep all source automations paused.
-4. Do not ingest private source data until I explicitly choose a connector.
+If this folder is empty, clone the repo contents into this folder. If the repo is already here, use the current files.
 
-When finished, tell me the Brain path, GBrain path, whether GBrain doctor passed, whether embeddings ran, and what connector I should enable first.
+Run ./scripts/install.sh --install-bun.
+
+Keep source automations paused and do not ingest private source data yet. After install, guide me through setup in this thread: OpenAI key for embeddings, app connectors, and enabling one automation at a time. Report the Brain path, GBrain path, GBrain doctor status, installed automations, and whether embeddings are configured.
 ```
 
 Optional edits:
 
-- Change `Etc/UTC` to the user's timezone.
-- Change `Your Name` to the user's display name.
-- Set `OPENAI_API_KEY` before running the installer if the user wants initial embeddings.
+- Add `--timezone <iana-zone>` if the user wants to override auto-detection.
+- Add `--operator <name>` if the user wants a specific label for their own chat messages in config examples.
+- Set `OPENAI_API_KEY` before running the installer if the user wants initial embeddings during install.
 - Add `--no-install-codex-automations` if the user only wants rendered TOML files, not installed paused automations.
 - Add `--no-embed` if the user wants text import only during setup.

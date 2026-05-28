@@ -43,23 +43,27 @@ GBrain index
 ```text
 Install Lorebase locally in this folder from <paste this repo URL>.
 
-If this folder is empty, clone the repo contents into this folder. If the repo is already here, use the current files. Then:
-1. Run make test.
-2. Run ./scripts/install.sh --install-bun --timezone "Etc/UTC" --operator "Your Name".
-3. Keep all source automations paused.
-4. Do not ingest private source data until I explicitly choose a connector.
+If this folder is empty, clone the repo contents into this folder. If the repo is already here, use the current files.
 
-When finished, tell me the Brain path, GBrain path, whether GBrain doctor passed, whether embeddings ran, and what connector I should enable first.
+Run ./scripts/install.sh --install-bun.
+
+Keep source automations paused and do not ingest private source data yet. After install, guide me through setup in this thread: OpenAI key for embeddings, app connectors, and enabling one automation at a time. Report the Brain path, GBrain path, GBrain doctor status, installed automations, and whether embeddings are configured.
 ```
 
-That prompt gives Codex enough context to clone the repo into the folder, verify it, run the installer, install GBrain dependencies, create the local Brain, install the Lorebase Codex skill, render and install paused automations, initialize GBrain, import the blank Brain, and run embeddings when `OPENAI_API_KEY` is available.
+That prompt gives Codex enough context to clone the repo into the folder, run the installer, install GBrain dependencies, create the local Brain, install the Lorebase Codex skill, render and install paused automations, initialize GBrain, import the blank Brain, and start guided setup.
+
+## Setup Choices
+
+- **Timezone** is used later for source windows and daily Google Calendar pages. The installer auto-detects it; use `--timezone` only if you want to override it.
+- **Operator label** helps chat-source recipes recognize the user's own messages in sources like Slack or Telegram. The installer uses `You` by default; use `--operator` only if you want a specific display name in config examples.
+- **Tests** are for contributors and release checks. New users can skip `make test`; the installer already runs `gbrain doctor --json`.
+- **Embeddings** can be configured after install. If `OPENAI_API_KEY` is already set, the installer runs `gbrain embed --stale`; otherwise Codex can help add the key and run embeddings next.
 
 ## Manual Quickstart
 
 ```bash
 git clone <repo-url> lorebase
 cd lorebase
-make test
 ./scripts/install.sh --install-bun
 ```
 
@@ -71,6 +75,7 @@ By default the installer:
 - renders paused automation TOML files into `generated/codex-automations/`
 - installs paused automation TOML files into `~/.codex/automations/`
 - copies sanitized config examples into the relevant `~/gbrain/*-sync/` folders
+- auto-detects timezone and writes a neutral operator label to source config examples
 - runs `bun install`, `bun link`, `gbrain init`, `gbrain doctor --json`, and `gbrain import ~/Brain --no-embed`
 - runs `gbrain embed --stale` when `OPENAI_API_KEY` is available
 

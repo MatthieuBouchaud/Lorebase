@@ -10,8 +10,8 @@ Options:
   --brain <path>                    Brain repo path (default: ~/Brain)
   --gbrain <path>                   GBrain repo path (default: ~/gbrain)
   --model <model>                   Codex model for automations (default: gpt-5.4)
-  --timezone <iana-zone>            Timezone written to config examples (default: Etc/UTC)
-  --operator <name>                 Display name written to config examples
+  --timezone <iana-zone>            Timezone for source config examples (default: auto-detect, fallback Etc/UTC)
+  --operator <name>                 Label for your own messages in chat configs (default: You)
   --install-bun                     Install Bun with the official Bun installer if missing
   --no-gbrain-clone                 Do not clone gbrain if missing
   --no-install-codex-automations    Render automation TOML only; do not install paused automations
@@ -22,11 +22,46 @@ EOF
 }
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+detect_timezone() {
+  if [[ -n "${TIMEZONE:-}" ]]; then
+    printf '%s\n' "$TIMEZONE"
+    return 0
+  fi
+  if command -v systemsetup >/dev/null 2>&1; then
+    local system_timezone
+    system_timezone="$(systemsetup -gettimezone 2>/dev/null | sed 's/^Time Zone: //')" || true
+    if [[ -n "$system_timezone" && "$system_timezone" != *"not supported"* ]]; then
+      printf '%s\n' "$system_timezone"
+      return 0
+    fi
+  fi
+  if command -v timedatectl >/dev/null 2>&1; then
+    local timedatectl_timezone
+    timedatectl_timezone="$(timedatectl show -p Timezone --value 2>/dev/null)" || true
+    if [[ -n "$timedatectl_timezone" ]]; then
+      printf '%s\n' "$timedatectl_timezone"
+      return 0
+    fi
+  fi
+  if [[ -L /etc/localtime ]]; then
+    local localtime_target
+    localtime_target="$(readlink /etc/localtime 2>/dev/null)" || true
+    case "$localtime_target" in
+      */zoneinfo/*)
+        printf '%s\n' "${localtime_target#*zoneinfo/}"
+        return 0
+        ;;
+    esac
+  fi
+  printf '%s\n' "Etc/UTC"
+}
+
 brain_repo="${BRAIN_REPO:-$HOME/Brain}"
 gbrain_repo="${GBRAIN_REPO:-$HOME/gbrain}"
 model="${CODEX_MODEL:-gpt-5.4}"
-timezone="${TIMEZONE:-Etc/UTC}"
-operator="${OPERATOR_DISPLAY_NAME:-Your Name}"
+timezone="${TIMEZONE:-}"
+operator="${OPERATOR_DISPLAY_NAME:-You}"
 install_bun=0
 clone_gbrain=1
 install_codex_automations=1
@@ -85,6 +120,10 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ -z "$timezone" ]]; then
+  timezone="$(detect_timezone)"
+fi
 
 for tool_dir in "$HOME/.bun/bin" "$HOME/.local/bin" "/opt/homebrew/bin" "/usr/local/bin"; do
   if [[ -d "$tool_dir" && ":$PATH:" != *":$tool_dir:"* ]]; then

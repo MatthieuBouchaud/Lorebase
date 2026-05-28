@@ -2,7 +2,7 @@
   "mode": "telethon-user-session",
   "auth_mode": "telethon-user-session",
   "timezone": "Etc/UTC",
-  "operator_display_name": "Your Name",
+  "operator_display_name": "replace-with-your-display-name",
   "download_attachments": true,
   "chat_scope": "all",
   "include_private_chats": true,
